@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Topic split for conversations",
+    "description": "Pick content by topic or exact turns from a long conversation and export it as independent, resumable sessions. Adds a Split control above the composer, with coverage checks, preview, and optional remove-and-archive. Not a split-screen view."
+  }
+}

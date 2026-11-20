@@ -1,0 +1,68 @@
+{
+  "name": "dsh-topic-split",
+  "version": "0.12.1",
+  "description": "从长会话中按主题或任意轮次挑选内容，导出为可继续的独立会话；支持覆盖率核对、导出后剪除并归档；不是分屏。",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./client": "./client/index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "src",
+    "client",
+    "locale",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node scripts/test-all.mjs",
+    "lint": "node scripts/style-check.mjs",
+    "validate": "node scripts/validate-manifest.mjs",
+    "check": "npm run lint && npm run validate && npm test",
+    "test:node": "node --test"
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.2.2-rc.5 <0.3.0"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "session",
+    "topic",
+    "split",
+    "export"
+  ],
+  "author": "qq666-star",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qq666-star/dsh-topic-split.git"
+  },
+  "homepage": "https://github.com/qq666-star/dsh-topic-split#readme",
+  "bugs": {
+    "url": "https://github.com/qq666-star/dsh-topic-split/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "GPL-3.0-only",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# dsh-topic-split：挂载插件（host 半 + client 半）
+- insert:
+    - id: dsh-topic-split
+      name: dsh-topic-split
