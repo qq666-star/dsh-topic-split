@@ -16,8 +16,20 @@
 
 ## 安装
 
-在 DSH 中打开 **Plugins → Add plugin**，选择本目录（本地开发）或包名 `dsh-topic-split`。
+在 DSH 中打开 **Plugins → Add plugin**，选择包名 `dsh-topic-split`（或本地目录）。
 官方安装路径会完成依赖、bundle 选择、兼容性检查与 build 审批，**不要手工改 profile 的 `package.json`**。
+
+命令行安装（npm 包）：
+
+```powershell
+dsh plugin --profile web add dsh-topic-split
+```
+
+从 GitHub 源码安装：
+
+```powershell
+dsh plugin --profile web add github:qq666-star/dsh-topic-split
+```
 
 安装并重启后，会话输入框上方会出现「拆分 / Split」控件。
 
