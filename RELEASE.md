@@ -1,4 +1,4 @@
-# Release 0.12.1
+﻿# Release 0.12.1
 
 ## 发布结果（2026-11-21）
 
@@ -24,7 +24,7 @@
 - dsh-plugin.org 收录申请：https://github.com/dshplugin/dsh-plugin-hub/issues/871（待审核）
 - npm 包可供 DSH 插件中心一键安装
 - awesome-dsh-plugin（dshmarket 安装源）PR 需等仓库创建满 24 小时
-  （2026-11-21 23:26 本地时间后），条目已准备在 `_release/awesome-entry.yml`
+  （2026-11-21 23:26 本地时间后），条目已准备在 `market/awesome-entry.yml`
 
 ## 产物
 
