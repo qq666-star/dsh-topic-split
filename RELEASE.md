@@ -10,7 +10,14 @@
 - `0.0.0-stage` 占位版本是 npm 暂存发布机制，**不要手动删除**
 - 从 registry 下载 tarball 并安装验证通过（version/license/client 修复均在包内）
 
-**GitHub 代码尚未推送**：远端仍只有 `Initial commit`，本地提交在 `_repo`。
+## GitHub
+
+- `main` 已推送：`baa3162`（2 commits）
+- tag：`v0.12.1` → `baa3162`；已删除错误的 `v0.12.0` / `v0.12.o`（原先都指向初始提交）
+- **CI workflow 暂未推送**：当前 GitHub 凭据缺少 `workflow` scope，
+  `.github/workflows/ci.yml` 被 GitHub 拒绝。文件保留在
+  `D:\DSH-Workspace\_ci_pending\workflows\ci.yml`。
+  补一个带 `workflow` 权限的 token（或网页登录）后即可推上去。
 
 ## 产物
 
