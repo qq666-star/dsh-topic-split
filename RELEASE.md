@@ -14,9 +14,17 @@
 
 - `main` 已推送：`baa3162`（2 commits）
 - tag：`v0.12.1` → `baa3162`；已删除错误的 `v0.12.0` / `v0.12.o`（原先都指向初始提交）
-- **CI 已启用**：`.github/workflows/ci.yml`（commit `07349af`），Actions 会跑
-  Windows/Ubuntu/macOS × Node 22/24 的规范、manifest、测试与语法检查。
-  当前运行：https://github.com/qq666-star/dsh-topic-split/actions
+- **CI 已启用且全绿**：`.github/workflows/ci.yml`（commit `b44ae00`），
+  Windows/Ubuntu/macOS × Node 22/24 六个任务全部 success。
+  运行记录：https://github.com/qq666-star/dsh-topic-split/actions/runs/44892697507
+
+## 社区市场
+
+- GitHub topics：`dsh-plugin`、`deepseek-harness`、`topic-split`、`session-management`、`export-copy`
+- dsh-plugin.org 收录申请：https://github.com/dshplugin/dsh-plugin-hub/issues/871（待审核）
+- npm 包可供 DSH 插件中心一键安装
+- awesome-dsh-plugin（dshmarket 安装源）PR 需等仓库创建满 24 小时
+  （2026-11-21 23:26 本地时间后），条目已准备在 `_release/awesome-entry.yml`
 
 ## 产物
 
