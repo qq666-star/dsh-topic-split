@@ -14,10 +14,9 @@
 
 - `main` 已推送：`baa3162`（2 commits）
 - tag：`v0.12.1` → `baa3162`；已删除错误的 `v0.12.0` / `v0.12.o`（原先都指向初始提交）
-- **CI workflow 暂未启用**：当前 GitHub 凭据缺少 `workflow` scope，
-  `.github/workflows/ci.yml` 被 GitHub 拒绝。
-  配置已保存在仓库 `ci/ci.yml`；补一个带 `workflow` 权限的 token（或网页登录）后，
-  复制到 `.github/workflows/ci.yml` 并提交即可。
+- **CI 已启用**：`.github/workflows/ci.yml`（commit `07349af`），Actions 会跑
+  Windows/Ubuntu/macOS × Node 22/24 的规范、manifest、测试与语法检查。
+  当前运行：https://github.com/qq666-star/dsh-topic-split/actions
 
 ## 产物
 
@@ -60,33 +59,21 @@
 
 ## 仓库状态
 
-本地 `D:\DSH-Workspace\_repo` 已包含一个提交：
-
-```
-feat: dsh-topic-split 0.12.0 (conversation topic split plugin)
-```
-
-**推送尚未完成**：当前机器没有 GitHub 凭据（无 token / SSH key / 已存凭据）。
-在有登录态的终端执行一次即可：
-
-```powershell
-cd D:\DSH-Workspace\_repo
-git push -u origin main
-```
+- `main`：`07349af`（含 0.12.1 代码、文档、CI workflow）
+- tag：`v0.12.1`（Release 已发布）
+- GitHub Release：https://github.com/qq666-star/dsh-topic-split/releases/tag/v0.12.1
+- npm：https://www.npmjs.com/package/dsh-topic-split
 
 > 仓库与包统一使用 **GPL-3.0-only**；`LICENSE` 为仓库原有的 GPL-3.0 文本，
 > `package.json` 的 `license` 已同步。npm 包的体积因此增加约 35 KB。
 
-## 发布步骤（需要 npm 账号）
+## 发布状态
+
+npm 已发布 `0.12.1`（`latest`），`0.12.0` 已 deprecate。安装：
 
 ```powershell
-cd D:\DSH-Workspace\dsh-topic-split
-npm login            # 交互输入密码/2FA
-npm publish --access public
-npm view dsh-topic-split version
+dsh plugin --profile web add dsh-topic-split
 ```
-
-发布后建议在干净 profile 用 Plugins → Add plugin 安装 `dsh-topic-split` 走一遍面板。
 
 ## 回滚
 
