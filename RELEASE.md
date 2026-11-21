@@ -14,10 +14,10 @@
 
 - `main` 已推送：`baa3162`（2 commits）
 - tag：`v0.12.1` → `baa3162`；已删除错误的 `v0.12.0` / `v0.12.o`（原先都指向初始提交）
-- **CI workflow 暂未推送**：当前 GitHub 凭据缺少 `workflow` scope，
-  `.github/workflows/ci.yml` 被 GitHub 拒绝。文件保留在
-  `D:\DSH-Workspace\_ci_pending\workflows\ci.yml`。
-  补一个带 `workflow` 权限的 token（或网页登录）后即可推上去。
+- **CI workflow 暂未启用**：当前 GitHub 凭据缺少 `workflow` scope，
+  `.github/workflows/ci.yml` 被 GitHub 拒绝。
+  配置已保存在仓库 `ci/ci.yml`；补一个带 `workflow` 权限的 token（或网页登录）后，
+  复制到 `.github/workflows/ci.yml` 并提交即可。
 
 ## 产物
 
