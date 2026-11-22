@@ -2,6 +2,8 @@
 
 从长会话中按主题或任意轮次挑选内容，导出为可继续的独立会话；支持覆盖率核对、导出后剪除并归档。控件在输入框上方，不是分屏插件。
 
+[![Listed on dsh-plugin.org](https://dsh-plugin.org/badges/listed.svg)](https://dsh-plugin.org/plugins/qq666-star/dsh-topic-split)
+
 ## 能力
 
 | 位置 | 名称 | 说明 |
