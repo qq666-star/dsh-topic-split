@@ -1,6 +1,6 @@
 # dsh-topic-split — 详细介绍 / Detailed Guide
 
-> 版本 `0.12.1` · 许可证 GPL-3.0-only · npm: https://www.npmjs.com/package/dsh-topic-split
+> 版本 `0.12.2` · 许可证 GPL-3.0-only · npm: https://www.npmjs.com/package/dsh-topic-split
 >
 > 中文在前，English follows. 本文是面向用户与开发者的完整说明；README 是快速上手版。
 
@@ -558,7 +558,7 @@ $env:DSH_SESSION_SPLIT_JUDGE_KEY = '<key>'
 | 面板返回 403 | 非本机 Host/来源 | 只从本机访问，勿走反代 |
 | 429 | 触发限流 | 等待一分钟后重试 |
 | 会话列表整块消失 | 目录里有 `.archived-*` 残留 | 0.9.2+ 启动会自动改回；也可手动改回 `session-<id>` |
-| 导出会话打不开/corrupt | 结构不完整 | 用 `session_diag` 检查；升级到 0.12.1 |
+| 导出会话打不开/corrupt | 结构不完整 | 用 `session_diag` 检查；升级到 0.12.2 |
 | 主题分段失败 | 判断模型不可用 | 已自动回退关键词；或设 `mode=keyword` |
 | 剪除后主会话不见了 | 原会话已归档，主会话是新建的 | 到侧栏找新主会话 |
 
@@ -580,7 +580,7 @@ docs/           本文档
 ### 命令
 
 ```powershell
-npm test            # 114 个用例
+npm test            # 116 个用例
 npm run lint        # 9 条代码规范
 npm run validate    # manifest / locale / icon 静态校验
 npm run check       # lint + validate + test
@@ -589,7 +589,7 @@ node scripts/sandbox-turns.mjs   # 临时 DSH_HOME 沙盒
 
 ### 验证边界
 
-- 已验证：语法、manifest、114 个测试、HTTP 行为、会话结构、源会话只读、客户端注册契约；
+- 已验证：语法、manifest、116 个测试、HTTP 行为、会话结构、源会话只读、客户端注册契约；
 - 未验证：真实浏览器渲染、主题明暗、390px 窄屏、live slot、Plugin Manager 图标显示、
   Linux/macOS 真机。
 
@@ -605,10 +605,10 @@ npm 对首次发布会启用**暂存发布**：先出现 `0.0.0-stage` 占位，
 | 项 | 值 |
 |---|---|
 | npm | https://www.npmjs.com/package/dsh-topic-split |
-| 版本 | `0.12.1` |
+| 版本 | `0.12.2` |
 | 许可证 | GPL-3.0-only |
 | 仓库 | https://github.com/qq666-star/dsh-topic-split |
-| 测试 | 114 个用例（单元、集成、HTTP 鉴权、性能、客户端注册契约） |
+| 测试 | 116 个用例（单元、集成、HTTP 鉴权、性能、客户端注册契约） |
 | 兼容 | Node ≥ 22；DSH `>=0.2.2-rc.5 <0.3.0` |
 
 ---
@@ -808,12 +808,12 @@ judge model. Environment variables use the `DSH_SESSION_SPLIT_*` prefix, includi
 | 403 | Non-local Host/Origin | Access from localhost only |
 | 429 | Rate limited | Wait a minute |
 | Session list disappears | `.archived-*` directories | 0.9.2+ repairs them on startup |
-| Corrupt export | Invalid session structure | Run `session_diag`; upgrade to 0.12.1 |
+| Corrupt export | Invalid session structure | Run `session_diag`; upgrade to 0.12.2 |
 
 ## English 15. Development and release
 
 ```powershell
-npm test            # 114 tests
+npm test            # 116 tests
 npm run lint        # 9 style rules
 npm run validate    # manifest / locale / icon checks
 npm run check       # lint + validate + test

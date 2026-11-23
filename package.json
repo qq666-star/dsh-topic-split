@@ -1,6 +1,6 @@
 {
   "name": "dsh-topic-split",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "从长会话中按主题或任意轮次挑选内容，导出为可继续的独立会话；支持覆盖率核对、导出后剪除并归档；不是分屏。",
   "type": "module",
   "main": "src/index.js",

@@ -30,6 +30,7 @@ function makeHost(options = {}) {
       },
     },
     get(name) {
+      if (name === 'connection') return options.connection
       if (name !== 'webServer') return undefined
       return {
         register(route) {
@@ -73,6 +74,32 @@ async function call(route, method, url, payload, headers = {}, peer = '127.0.0.1
 }
 
 const authed = { 'x-dsh-split-token': TOKEN }
+
+test('有 DSH connection 服务时先按宿主规则拒绝', async () => {
+  let seen = null
+  const host = makeHost({
+    cfg: { httpRoutes: 'token', httpToken: TOKEN },
+    connection: {
+      requestRejection(req) {
+        seen = req
+        return 401
+      },
+    },
+  })
+  const out = await call(host.route, 'GET', '/dsh-topic-split/sessions', undefined, authed)
+  assert.equal(out.status, 401)
+  assert.equal(out.body.code, 'CONNECTION_REJECTED')
+  assert.ok(seen && seen.headers && seen.headers.host)
+})
+
+test('connection 放行时仍要求插件令牌', async () => {
+  const host = makeHost({
+    cfg: { httpRoutes: 'token', httpToken: TOKEN },
+    connection: { requestRejection: () => undefined },
+  })
+  assert.equal((await call(host.route, 'GET', '/dsh-topic-split/sessions', undefined, authed)).status, 200)
+  assert.equal((await call(host.route, 'GET', '/dsh-topic-split/sessions')).status, 401)
+})
 
 test('默认开启面板且要求令牌', async () => {
   const host = makeHost()

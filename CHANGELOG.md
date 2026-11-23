@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.2 — 2026-11-23
+
+### 安全加固：接入 DSH 的 connection 准入
+
+- HTTP 路由优先调用 `ctx.connection.requestRejection({ headers })`，由 DSH
+  校验 Host/Origin 与浏览器凭据；返回 401/403 时直接拒绝
+- 没有 connection 服务（或旧版 DSH）时回退到本插件原有守卫：
+  令牌 + Host + 连接来源 + Origin + Sec-Fetch-Site + 回环地址
+- 新增 2 个路由测试（宿主拒绝、宿主放行后仍要求插件令牌），总数 116
+- 真实浏览器（临时 3090）验证：面板 `/sessions`、`/topics` 仍是 200，
+  111 轮正常分 4 段
+- 回应 awesome-dsh-plugin 目录中“HTTP 路由没有 DSH 访问检查”的提示
+
 ## 0.12.1 — 2026-11-21
 
 ### 修复：手动切换“源会话”被立刻重置（P0，真实浏览器验收发现）

@@ -319,7 +319,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/uninstall.ps1 -Profi
 ## 测试与 CI
 
 ```powershell
-npm test         # 114 个用例：单元 + 集成 + 安全 + 客户端注册契约
+npm test         # 116 个用例：单元 + 集成 + 安全 + 客户端注册契约
 npm run validate # manifest / locale / icon 静态校验
 node scripts/sandbox-turns.mjs   # 临时 DSH_HOME 沙盒：连跑 3 遍也不写真实会话
 npm run lint     # 代码规范（9 条规则）
@@ -335,7 +335,7 @@ CI 里仍可用 `node --test`（`npm run test:node`）。
 
 - 语法：全部 `.js/.mjs` 通过 `node --check`
 - Manifest：`dsh.bundle.patch`、`./client`、`locale/*.json`、`icon.svg` 均存在且可解析
-- 宿主侧：114 个测试（HTTP 401/403/429、turns/cut、seq 连续、源会话只读、性能预算）
+- 宿主侧：116 个测试（HTTP 401/403/429、turns/cut、seq 连续、源会话只读、性能预算）
 - 数据不变量：源会话 SHA256 不变；写入限定在 DSH_HOME 内；原子写
 - 客户端契约：`inject: ['slots','locale']`、注册 `conversation.input.dock`、zh/en 字典键一致、
   源码不含宿主 DOM 探查与 `document.body.append`

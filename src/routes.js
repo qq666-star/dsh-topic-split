@@ -11,6 +11,7 @@
  * - 默认关闭（httpRoutes: 'off'），只注册工具，不暴露任何 HTTP 接口；
  * - 开启后要求令牌（配置/环境变量，或进程内随机并注入页面 meta）；
  * - 校验 Host / Origin，只允许本机来源，防 DNS rebinding 与跨站请求；
+ * - 有 DSH connection 服务时先走宿主的 requestRejection（浏览器凭据 + Host/Origin）；
  * - 限流：普通请求与导出请求分档；
  * - 会话标题默认隐藏，诊断信息默认脱敏；
  * - 只读源会话；导出走 store 的原子写；参数全部白名单校验。
@@ -83,6 +84,39 @@ function resolveWebServer(ctx) {
   return null
 }
 
+/** 解析 DSH connection 服务：属性直取与 ctx.get 双路径。 */
+function resolveConnection(ctx) {
+  if (!ctx) return null
+  try {
+    const direct = ctx.connection
+    if (direct && typeof direct.requestRejection === 'function') return direct
+  } catch {
+    /* 未注入时可能抛错，继续尝试 ctx.get */
+  }
+  try {
+    const got = typeof ctx.get === 'function' ? ctx.get('connection') : null
+    if (got && typeof got.requestRejection === 'function') return got
+  } catch {
+    /* 忽略 */
+  }
+  return null
+}
+
+/**
+ * 用 DSH 自己的 Host/Origin + 浏览器凭据检查给路由再加一层准入。
+ * 没有 connection 服务时返回 undefined，继续用本插件的守卫。
+ */
+function connectionRejection(ctx, req, log) {
+  const connection = resolveConnection(ctx)
+  if (!connection) return undefined
+  try {
+    return connection.requestRejection({ headers: req.headers })
+  } catch (err) {
+    log?.warn?.(`DSH connection 准入检查失败，按拒绝处理：${err && err.message ? err.message : err}`)
+    return 403
+  }
+}
+
 /**
  * 注册路由（默认关闭）。
  * @param {any} ctx cordis 上下文
@@ -113,6 +147,11 @@ export function registerRoutes(ctx, deps) {
       const url = new URL(req.url ?? '/', 'http://localhost')
       const path = url.pathname
       const kind = path === `${PREFIX}/export` ? 'export' : 'general'
+      const rejected = connectionRejection(ctx, req, log)
+      if (rejected) {
+        json(res, { ok: false, error: '需要 DSH 页面会话', code: 'CONNECTION_REJECTED' }, rejected)
+        return
+      }
       const verdict = guard.check(req, kind)
       if (!verdict.ok) {
         json(res, { ok: false, error: verdict.message, code: verdict.code }, verdict.status)

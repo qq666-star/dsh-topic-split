@@ -20,23 +20,26 @@
 | 会话标题对外 | 返回，但仅在令牌通过后可见（`exposeTitles: false` 可关闭） |
 | 诊断中的主机名/路径 | HTTP 接口返回时脱敏 |
 | 监听范围 | 跟随 DSH 自身绑定（默认 `127.0.0.1`） |
-| 来源校验 | Host + 连接来源 + Origin + Sec-Fetch-Site 四重校验 |
+| 来源校验 | DSH `connection.requestRejection`（有该服务时）+ Host/连接来源/Origin/Sec-Fetch-Site 四重校验 |
 | 限流 | 普通 60 次/分，导出 6 次/分 |
 
 想彻底不暴露 HTTP 接口：`httpRoutes: 'off'`（或 `DSH_SESSION_SPLIT_HTTP=off`）。
 
-## 为什么自己实现鉴权
+## 鉴权分层
 
 DSH 的 `webServer.register()` 注册的路由**不经过宿主自身的 token 鉴权**
 （实测：`/` 与 `/api/*` 无 token 返回 401，而插件注册的路由返回 200）。
-因此本插件在 `httpRoutes: 'token'` 模式下自行实现：
+因此本插件在 `httpRoutes: 'token'` 模式下：
 
-1. 令牌比较（常量时间），令牌可配置或进程内随机；
-2. `Host` 白名单，只允许 loopback，阻断 DNS rebinding；
-3. 连接对端地址校验，拒绝非本机 socket；
-4. `Origin` 与 `Sec-Fetch-Site` 校验，阻断跨站请求；
-5. 普通/导出两档限流；
-6. 令牌通过 index.html 的 meta 注入，只有通过宿主鉴权的页面才能取得。
+1. **优先**调用 `ctx.connection.requestRejection({ headers })`，复用 DSH 的
+   Host/Origin 检查和浏览器凭据校验；返回 401/403 直接拒绝；
+2. 没有 `connection` 服务时回退到插件自己的守卫：
+   - 令牌比较（常量时间），令牌可配置或进程内随机；
+   - `Host` 白名单，只允许 loopback，阻断 DNS rebinding；
+   - 连接对端地址校验，拒绝非本机 socket；
+   - `Origin` 与 `Sec-Fetch-Site` 校验，阻断跨站请求；
+   - 普通/导出两档限流；
+   - 令牌通过 index.html 的 meta 注入，只有通过宿主鉴权的页面才能取得。
 
 ## 已知边界
 
